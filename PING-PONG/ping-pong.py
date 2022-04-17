@@ -6,7 +6,7 @@ mixer.init()
 #создай окно игры
 window = display.set_mode((1600, 900))
 
-display.set_caption('ШУТЕР')
+display.set_caption('PING-COCK')
 win_width = 1600
 win_height = 900
 #задай фон сцены
@@ -69,8 +69,20 @@ while game:
     for e in event.get():
         if e.type == QUIT:
             game = False    
-    lose = font.render('YOU LOSE', 1, (255, 0, 0))
+    gover = font.render('GAME OVER!', 1, (255, 0, 0))
     win = font.render('YOU WIN!', 1, (0, 0, 255))
+    keys = key.get_pressed()
+    if keys[K_F5]:
+        finish = False
+        ball.rect.x = 800
+        ball.rect.y = 450
+        mixer.music.load('Wii - Shop Theme.mp3')
+        mixer.music.play()
+        mixer.music.set_volume(0.1)
+    if keys[K_ESCAPE]:
+        finish = True
+    if keys[K_SPACE]:
+        finish = False
     if finish != True:
         window.blit(background,(0, 0))
         ball.rect.x += sp_x
@@ -86,7 +98,7 @@ while game:
             mixer.music.stop()
             mixer.music.load('lose.ogg')
             mixer.music.play()
-            window.blit(lose, (600,400))
+            window.blit(gover, (600,400))
             finish = True
         player1.update()
         player1.reset()
